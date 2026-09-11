@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>تم الطلب | RICH Perfume</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<header>
+
+    <a href="/" class="logo">
+        RICH
+    </a>
+
+    <nav>
+        <a href="/">الرئيسية</a>
+        <a href="/products">العطور</a>
+        <a href="/bundles">البكجات</a>
+        <a href="/gifts">الهدايا</a>
+        <a href="/cart">السلة 🛒</a>
+    </nav>
+
+</header>
+
+
+<main class="success-page">
+
+    <div class="success-box">
+
+        <div class="success-icon">
+            ✓
+        </div>
+
+        <p class="small-title">
+            RICH PERFUME
+        </p>
+
+        <h1>
+            تم استلام طلبك 🎉
+        </h1>
+
+        <p>
+            شكرًا لطلبك من RICH.
+            <br>
+            سنتواصل معك قريبًا لتأكيد الطلب.
+        </p>
+
+        <div class="order-number">
+
+            رقم الطلب:
+
+            <strong>
+                #{{ order.id }}
+            </strong>
+
+        </div>
+
+        <div class="success-total">
+
+            إجمالي الطلب:
+
+            <strong>
+                {{ "%.2f"|format(order.total) }} JD
+            </strong>
+
+        </div>
+
+        <a href="/products" class="btn">
+            العودة للعطور
+        </a>
+
+    </div>
+
+</main>
+
+
+<footer>
+
+    <div class="logo">
+        RICH
+    </div>
+
+    <p>
+        RICH Perfume
+    </p>
+
+    <p>
+        عطور تليق بذوقك
+    </p>
+
+</footer>
+
+</body>
+
+</html>

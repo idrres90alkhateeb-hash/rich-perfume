@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>لوحة التحكم | RICH</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<header>
+
+    <a href="/" class="logo">
+        RICH
+    </a>
+
+    <nav>
+        <a href="/">الموقع</a>
+        <a href="/products">العطور</a>
+        <a href="/admin">لوحة التحكم</a>
+    </nav>
+
+</header>
+
+
+<main class="admin-page">
+
+    <div class="admin-header">
+
+        <div>
+
+            <p class="small-title">
+                RICH ADMIN
+            </p>
+
+            <h1>
+                الطلبات
+            </h1>
+
+        </div>
+
+        <div class="admin-count">
+
+            <span>
+                إجمالي الطلبات
+            </span>
+
+            <strong>
+                {{ orders|length }}
+            </strong>
+
+        </div>
+
+    </div>
+
+
+    {% if orders %}
+
+        <div class="orders-table">
+
+            <div class="order-row order-header">
+
+                <span>رقم الطلب</span>
+                <span>العميل</span>
+                <span>الهاتف</span>
+                <span>المدينة</span>
+                <span>المجموع</span>
+                <span>الحالة</span>
+
+            </div>
+
+
+            {% for order in orders %}
+
+                <div class="order-row">
+
+                    <span>
+                        #{{ order.id }}
+                    </span>
+
+                    <span>
+                        {{ order.customer_name }}
+                    </span>
+
+                    <span>
+                        {{ order.phone }}
+                    </span>
+
+                    <span>
+                        {{ order.city }}
+                    </span>
+
+                    <strong>
+                        {{ "%.2f"|format(order.total) }} JD
+                    </strong>
+
+                    <form
+    method="POST"
+    action="{{ url_for('update_order_status', order_id=order.id) }}"
+>
+
+    <select name="status" onchange="this.form.submit()">
+
+        <option value="جديد"
+            {% if order.status == "جديد" %}selected{% endif %}>
+            جديد
+        </option>
+
+        <option value="تم التواصل"
+            {% if order.status == "تم التواصل" %}selected{% endif %}>
+            تم التواصل
+        </option>
+
+        <option value="قيد التجهيز"
+            {% if order.status == "قيد التجهيز" %}selected{% endif %}>
+            قيد التجهيز
+        </option>
+
+        <option value="تم الشحن"
+            {% if order.status == "تم الشحن" %}selected{% endif %}>
+            تم الشحن
+        </option>
+
+        <option value="مكتمل"
+            {% if order.status == "مكتمل" %}selected{% endif %}>
+            مكتمل
+        </option>
+
+    </select>
+
+</form>
+
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    {% else %}
+
+        <div class="empty-admin">
+
+            <h2>
+                لا توجد طلبات
+            </h2>
+
+            <p>
+                عندما يصل طلب جديد سيظهر هنا.
+            </p>
+
+        </div>
+
+    {% endif %}
+
+</main>
+
+
+<footer>
+
+    <div class="logo">
+        RICH
+    </div>
+
+    <p>
+        لوحة تحكم RICH
+    </p>
+
+</footer>
+
+</body>
+
+</html>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>العطور | RICH Perfume</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header>
+
+        <a href="/" class="logo">
+            RICH
+        </a>
+
+        <nav>
+            <a href="/">الرئيسية</a>
+            <a href="/products">العطور</a>
+            <a href="/bundles">البكجات</a>
+            <a href="/gifts">الهدايا</a>
+            <a href="/cart">السلة 🛒</a>
+        </nav>
+
+    </header>
+
+
+    <!-- Products -->
+    <main class="products-page">
+
+        <section class="products-header">
+
+            <p class="small-title">
+                RICH PERFUME
+            </p>
+
+            <h1>
+                مجموعتنا
+            </h1>
+
+            <p>
+                اكتشف مجموعة العطور المختارة من RICH.
+            </p>
+
+        </section>
+
+
+        <section class="products-grid">
+
+            {% if products %}
+
+                {% for product in products %}
+
+                    <div class="product-card">
+
+                        <div class="product-image">
+
+                            {% if product.image %}
+
+                                <img
+                                    src="{{ url_for('static', filename='images/' + product.image) }}"
+                                    alt="{{ product.name }}"
+                                >
+
+                            {% else %}
+
+                                <div class="product-placeholder">
+                                    RICH
+                                </div>
+
+                            {% endif %}
+
+                        </div>
+
+
+                        <div class="product-info">
+
+                            <p class="product-category">
+                                {{ product.category or "عطر" }}
+                            </p>
+
+                            <h2>
+                                {{ product.name }}
+                            </h2>
+
+                            <p class="product-description">
+                                {{ product.description }}
+                            </p>
+
+                            <div class="product-bottom">
+
+                                <strong>
+                                    {{ "%.2f"|format(product.price) }} JD
+                                </strong>
+
+                                <a
+                                    href="/product/{{ product.id }}"
+                                    class="btn product-btn"
+                                >
+                                    عرض العطر
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+
+            {% else %}
+
+                <div class="empty-products">
+
+                    <h2>
+                        لا يوجد عطور حاليًا
+                    </h2>
+
+                    <p>
+                        سيتم إضافة العطور قريبًا.
+                    </p>
+
+                </div>
+
+            {% endif %}
+
+        </section>
+
+    </main>
+
+
+    <!-- Footer -->
+    <footer>
+
+        <div class="logo">
+            RICH
+        </div>
+
+        <p>
+            RICH Perfume
+        </p>
+
+        <p>
+            عطور تليق بذوقك
+        </p>
+
+    </footer>
+
+</body>
+
+</html>
